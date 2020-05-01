@@ -12,6 +12,9 @@ spec:
       labels:
         app: jellyfin
     spec:
+      securityContext:
+        runAsUser: 1000006
+        runAsGroup: 1000004
       containers:
       - env:
         - name: NODE_NAME

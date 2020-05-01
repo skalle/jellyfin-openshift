@@ -14,4 +14,4 @@ spec:
     targetPort: 8096
   selector:
     app: jellyfin
-  type: ClusterIP
+  type: NodePort
