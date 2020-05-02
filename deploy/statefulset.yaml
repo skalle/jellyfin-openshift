@@ -44,7 +44,6 @@ spec:
         volumeMounts:
         - mountPath: /data/media
           name: media
-          readOnly: True
         - mountPath: /config
           name: jellyfin-config
       restartPolicy: Always

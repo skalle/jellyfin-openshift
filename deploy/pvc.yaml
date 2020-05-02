@@ -17,7 +17,7 @@ metadata:
   name: media
 spec:
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteOnce
   storageClassName: ""
   resources:
     requests:
