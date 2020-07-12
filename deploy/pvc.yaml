@@ -6,19 +6,19 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: "nfs-client"
+  storageClassName: "manual-config"
   resources:
     requests:
       storage: 10Gi
 ---
-#apiVersion: v1
-#kind: PersistentVolumeClaim
-#metadata:
-#  name: jellyfin-media
-#spec:
-#  accessModes:
-#    - ReadOnlyMany
-#  storageClassName: "media"
-#  resources:
-#    requests:
-#      storage: 10Mi
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "manual-media"
+  resources:
+    requests:
+      storage: 10Mi

@@ -1,14 +1,32 @@
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: jellyfin-config
+  name: jellyfin-config-pv
 spec:
+  storageClassName: manual-config
   accessModes:
   - ReadWriteOnce
   capacity:
-    storage: 10Gi
+    storage: 100Gi
   nfs:
     path: /volume2/k8s/jellyfin-config
+    server: store
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jellyfin-media-pv
+spec:
+  storageClassName: manual-media
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 100Gi
+  nfs:
+    path: /volume2/store/Media
     server: store
   persistentVolumeReclaimPolicy: Retain
   volumeMode: Filesystem

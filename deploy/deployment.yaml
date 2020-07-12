@@ -40,14 +40,14 @@ spec:
           protocol: TCP
         volumeMounts:
         - mountPath: /data/media
-          name: jellyfin-media
+          name: media
         - mountPath: /config
-          name: jellyfin-config
+          name: config
       restartPolicy: Always
       volumes:
-      - name: jellyfin-media
-        # persistentVolumeClaim:
-        #  claimName: jellyfin-media
-      - name: jellyfin-config
-        #persistentVolumeClaim:
-        #  claimName: jellyfin-config
+      - name: media
+        persistentVolumeClaim:
+          claimName: jellyfin-media
+      - name: config
+        persistentVolumeClaim:
+          claimName: jellyfin-config
