@@ -18,7 +18,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: jellyfin-media-pv
+  name: media-pv
 spec:
   storageClassName: manual-media
   accessModes:
@@ -34,7 +34,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: media-configs
+  name: media-config-pv
 spec:
   storageClassName: manual-config
   accessModes:

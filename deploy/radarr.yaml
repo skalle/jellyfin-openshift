@@ -1,0 +1,31 @@
+# media.radarr.values.yml
+replicaCount: 1
+
+env:
+  - name: PUID
+    value: "1000006"
+  - name: PGID
+    value: "1000004"
+
+service:
+  type: ClusterIP
+  port: 80
+
+volumes:
+  - name: media
+    persistentVolumeClaim:
+      claimName: "media" # PersistentVolumeClaim created earlier
+  - name: config
+    persistentVolumeClaim:
+      claimName: "config" # PersistentVolumeClaim created earlier
+
+volumeMounts:
+  - name: "config"
+    mountPath: "/config"
+    subPath: "radarr" # Path /mnt/ssd/media/configs/radarr where radarr writes the configuration
+  - name: "media"
+    mountPath: "/downloads/"
+    #subPath: "downloads/transmission" # Path /mnt/ssd/media/downloads/transmission where radarr picks up downloaded movies
+  - name: "media"
+    mountPath: "/movies"
+    #subPath: "library/movies" # Path /mnt/ssd/media/library/movies where radarr moves and renames the movies
