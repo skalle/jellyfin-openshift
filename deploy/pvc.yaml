@@ -6,7 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: "manual-config"
+  storageClassName: "jellyfin-config"
   resources:
     requests:
       storage: 10Gi
@@ -22,3 +22,15 @@ spec:
   resources:
     requests:
       storage: 10Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "manual-config"
+  resources:
+    requests:
+      storage: 10Gi

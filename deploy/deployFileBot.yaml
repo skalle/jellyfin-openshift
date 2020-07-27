@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filebot
+spec:
+  selector:
+    matchLabels:
+      app: filebot
+  template:
+    metadata:
+      labels:
+        app: filebot
+    spec:
+      securityContext:
+        runAsUser: 1000006
+        runAsGroup: 1000004
+      containers:
+      - env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        image: docker.io/jlsesage/filebot
+        imagePullPolicy: Always
+        name: filebot
+        ports:
+        - containerPort: 8096
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /storage
+          name: media
+        - mountPath: /config
+          name: config
+      restartPolicy: Always
+      volumes:
+      - name: media
+        persistentVolumeClaim:
+          claimName: filebot-media
+      - name: config
+        persistentVolumeClaim:
+          claimName: filebot-config

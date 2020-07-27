@@ -1,0 +1,24 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: "media"
+  name: "media-ingress"
+spec:
+  rules:
+  - host: "media.192.168.1.240.nip.io"
+    http:
+      paths:
+        - backend:
+            serviceName: "sonarr"
+            servicePort: 80
+          path: "/sonarr"
+        - backend:
+            serviceName: "radarr"
+            servicePort: 80
+          path: "/radarr"
+        - backend:
+            serviceName: "jellyfin"
+            servicePort: 8096
+          path: "/"
+---
