@@ -29,3 +29,11 @@ volumeMounts:
   - name: media
     mountPath: "/tv"
     #subPath: "library/tv" # Path /mnt/ssd/media/library/tv where sonarr moves and renames the episodes
+
+resources:
+  requests:
+    memory: 0
+    cpu: 0
+  limits:
+    memory: 0
+    cpu: 0
