@@ -21,4 +21,8 @@ spec:
             serviceName: "jellyfin"
             servicePort: 8096
           path: "/"
+        - backend:
+            serviceName: "jackett"
+            servicePort: 80
+          path: "/jackett"
 ---
