@@ -25,4 +25,8 @@ spec:
             serviceName: "jackett"
             servicePort: 80
           path: "/jackett"
+        - backend:
+            serviceName: "transmission-openvpn"
+            servicePort: 80
+          path: "/transmission"
 ---
