@@ -1,0 +1,64 @@
+# media.transmission-openvpn.values.yml
+replicaCount: 1
+
+env:
+  - name: OPENVPN_PROVIDER
+    value: "PRIVATEVPN" # VPN provider. List of supported providers: https://haugene.github.io/docker-transmission-openvpn/supported-providers/
+  - name: OPENVPN_USERNAME
+    valueFrom: # Reference to the secret | openvpn.username
+      secretKeyRef:
+        name: "openvpn"
+        key: "username"
+  - name: OPENVPN_PASSWORD
+    valueFrom: # Reference to the secret | openvpn.password
+      secretKeyRef:
+        name: "openvpn"
+        key: "password"
+  - name: NORDVPN_PROTOCOL
+    value: "UDP"
+  - name: NORDVPN_COUNTRY
+    value: "AU" # Country where we want to download over VPN
+  - name: NORDVPN_CATEGORY
+    value: "P2P" # VPN Type
+  - name: LOCAL_NETWORK
+    value: "10.43.0.0/16"
+  - name: TRANSMISSION_PEER_PORT
+    value: "47444"
+  - name: TRANSMISSION_DOWNLOAD_DIR
+    value: "/downloads/transmission"
+  - name: PUID
+    value: "1000006"
+  - name: PGID
+    value: "1000004"
+  - name: CREATE_TUN_DEVICE
+    value: true
+
+service:
+  type: ClusterIP
+  port: 80
+
+volumes:
+  - name: "media"
+    persistentVolumeClaim:
+      claimName: "media" # PersistentVolumeClaim created earlier
+  - name: "dev-tun" # Needed for VPN
+    hostPath:
+      path: "/dev/net/tun"
+  - name: config
+    persistentVolumeClaim:
+      claimName: "config" # PersistentVolumeClaim created earlier
+
+volumeMounts:
+  - name: "config"
+    mountPath: "/data"
+    subPath: "transmission-data" # Path /mnt/ssd/media/configs/transmission-data where transmission writes the configuration
+  - name: "media"
+    mountPath: "/downloads/transmission"
+    subPath: "transmission" # Path /mnt/ssd/media/downloads/transmission where transmission downloads Torrents
+  - name: "dev-tun"
+    mountPath: "/dev/net/tun" # Needed for VPN
+
+securityContext:
+  capabilities: # Needed for VPN
+    add:
+      - NET_ADMIN
