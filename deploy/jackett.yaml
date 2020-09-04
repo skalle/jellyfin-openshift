@@ -10,12 +10,12 @@ env:
   - name: VPN_USERNAME
     valueFrom:
       secretKeyRef: # Reference to the secret | openvpn.username
-        name: "openvpn"
+        name: "nordvpn"
         key: "username"
   - name: VPN_PASSWORD
     valueFrom:
       secretKeyRef: # Reference to the secret | openvpn.password
-        name: "openvpn"
+        name: "nordvpn"
         key: "password"
   - name: LAN_NETWORK
     value: "192.168.1.0/24"
